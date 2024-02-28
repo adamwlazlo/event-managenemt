@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class EventResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        $user = new UserResource($this->whenLoaded('user'));
+        $attendees = AttendeeResource::collection($this->whenLoaded('attendees'));
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'start_time' => $this->start_time,
+            'end_time' => $this->end_time,
+            'user' => $user,
+//            'attendees' => $attendees,
+//            'attendees' => $this->attendees->map(function ($attendee) {
+//                return $attendee->user->name;
+//            }),
+            'attendees' => $this->attendees->map(function ($attendee) {
+                return $attendee->user->name;
+            })->toArray(),
+        ];
+    }
+}
