@@ -24,13 +24,13 @@ class EventResource extends JsonResource
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'user' => $user,
-//            'attendees' => $attendees,
+            'attendees' => $attendees,
 //            'attendees' => $this->attendees->map(function ($attendee) {
 //                return $attendee->user->name;
 //            }),
-            'attendees' => $this->attendees->map(function ($attendee) {
-                return $attendee->user->name;
-            })->toArray(),
+//            'attendees' => $this->attendees->map(function ($attendee) {
+//                return $attendee->user->name;
+//            })->toArray(),
         ];
     }
 }
